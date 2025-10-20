@@ -3,14 +3,16 @@ services:
     image: prom/prometheus
     ports:
       - 9090:9090
+    env_file:
+      - .env
     volumes:
       - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./docker_data/prometheus:/prometheus
+      - ${PROMETHEUS_VOLUME_PATH}:/prometheus
     restart: always
   grafana:
     image: grafana/grafana
     volumes:
-      - ./docker_data/grafana_data:/var/lib/grafana
+      - ${GRAFANA_VOLUME_PATH}:/var/lib/grafana
     restart: always
     ports:
       - 3000:3000
