@@ -9,6 +9,9 @@
       - name: Update Debian
         raw: sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y
         when: ansible_facts['os_family'] == "Debian"
+      - name: update redhat
+        raw: sudo dnf upgrade -y
+        when: ansible_facts['os_family'] == "RedHat"
       - name: show os family
         ansible.builtin.debug:
           msg: The os family is {{ ansible_facts['os_family'] }}
