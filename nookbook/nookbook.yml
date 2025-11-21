@@ -1,0 +1,17 @@
+- name: update_servers
+  hosts: all
+  become: true
+  vars_files:
+    - ./vault_file
+  vars:
+    ansible_become_password: "{{ ROOT_PASS }}"
+  tasks:
+      - name: Update Debian
+        raw: sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y
+        when: ansible_facts['os_family'] == "Debian"
+      - name: show os family
+        ansible.builtin.debug:
+          msg: The os family is {{ ansible_facts['os_family'] }}
+      - name: update arch linux
+        raw: sudo pacman -Syu --noconfirm
+        when: ansible_facts['os_family'] == "Archlinux"
