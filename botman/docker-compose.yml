@@ -4,8 +4,6 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - jenkins_home:/var/jenkins_home
+      - ./jenkins_home:/var/jenkins_home
   ssh-agent:
     image: jenkins/ssh-agent
-volumes:
-  jenkins_home:
